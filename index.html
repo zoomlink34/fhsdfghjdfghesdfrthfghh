@@ -15,11 +15,11 @@
     <button class="control-btn" title="Search" onclick="toggleSearch()"><i class="fas fa-search"></i></button>
     <button class="control-btn" onclick="zoomIn()"><i class="fas fa-plus"></i></button>
     <button class="control-btn" onclick="zoomOut()"><i class="fas fa-minus"></i></button>
-    <button class="control-btn" onclick="resetView()"><i class="fas fa-home"></i></button>
+    <button class="control-btn" onclick="resetView()"><i class="fas fa-sync-alt"></i></button>
 </div>
 
 <div id="search-panel" class="search-hidden">
-    <input type="text" id="searchInput" placeholder="Search Plot # or Brand..." onkeyup="searchPixel()">
+    <input type="text" id="searchInput" placeholder="Enter Plot # and Press Enter" onkeydown="if(event.key==='Enter') searchPixel()">
     <div id="searchResult" class="result-box"></div>
 </div>
 
@@ -31,16 +31,19 @@
         </div>
         <div class="social-links">
             <a href="https://facebook.com/MillionDollarLandmass" target="_blank" class="fb"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://twitter.com/MillionDollarLandmass" target="_blank" class="tw"><i class="fab fa-twitter"></i></a>
             <a href="https://t.me/MillionDollarLandmass" target="_blank" class="tg"><i class="fab fa-telegram-plane"></i></a>
-            <a href="https://youtube.com/@MillionDollarLandmass" target="_blank" class="yt"><i class="fab fa-youtube"></i></a>
-            <a href="https://instagram.com/MillionDollarLandmass" target="_blank" class="ig"><i class="fab fa-instagram"></i></a>
+            <a href="https://whatsapp.com/channel/your-link" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
         </div>
     </div>
     <div class="hero-section">
         <canvas id="fireCanvas"></canvas>
         <h1 class="brand-title">THE MILLION DOLLAR LANDMASS</h1>
         <p class="promo-text">100,000 DIGITAL BLOCKS | $10 PER PLOT | SECURE YOUR LEGACY</p>
+    </div>
+    <div class="ceo-notice">
+        <marquee behavior="scroll" direction="left">
+            <strong>NOTICE FROM CEO KAWSAR:</strong> Welcome to the future of digital real estate. Secure your 100x60px plot today for just $10 and mark your brand on the global map forever!
+        </marquee>
     </div>
 </header>
 
@@ -51,21 +54,14 @@
 </main>
 
 <div class="nav-bar">
-    <div class="stats">PLOTS SOLD: <span id="sold-count">0</span> / 100,000</div>
-    <a href="order.html" class="buy-now-btn">SECURE YOUR PLOT ($10)</a>
+    <div class="stats">SOLD: <span id="sold-count">0</span> / 100,000</div>
+    <a href="order.html" class="buy-now-btn fire-button">OWN A PLOT ($10)</a>
 </div>
 
-<a href="https://wa.me/8801576940717" class="wa-float" target="_blank">
+<a href="https://wa.me/8801576940717" class="wa-float anime-wa" target="_blank">
     <i class="fab fa-whatsapp"></i> <span class="wa-label">SUPPORT</span>
 </a>
 
 <script src="script.js"></script>
-<script>
-    function copyText(val) {
-        navigator.clipboard.writeText(val).then(() => {
-            alert("Copied to clipboard: " + val);
-        });
-    }
-</script>
 </body>
 </html>
