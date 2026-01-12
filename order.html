@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body style="background:#000; color:#fff; display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; text-align:center;">
+    <div id="main-box" style="border:2px solid #FFD700; padding:50px; border-radius:20px; background:#111; width:350px;">
+        <h2 style="color:#FFD700">RESERVE YOUR PLOT</h2>
+        <input type="text" id="brand" placeholder="Your Brand Name" style="padding:15px; width:90%; margin:20px 0; border-radius:10px;">
+        <button onclick="submitOrder()" style="padding:15px 30px; background:red; color:#fff; border:none; border-radius:10px; cursor:pointer; font-weight:bold;">CONFIRM & SUBMIT</button>
+    </div>
+
+    <div id="success-msg" style="display:none; color:#28a745; padding:50px; border:2px solid #28a745; border-radius:20px; background:#111;">
+        <h1>CONGRATULATIONS!</h1>
+        <p>Your order has been submitted to CEO Kawsar.</p>
+        <p>Please complete payment via Binance or USDT to go live.</p>
+        <button onclick="window.location.href='index.html'" style="padding:10px 20px; background:#28a745; color:#fff; border:none; cursor:pointer;">RETURN HOME</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script>
+        firebase.initializeApp({databaseURL: "https://the-10-million-pixels-plus-default-rtdb.firebaseio.com/"});
+        function submitOrder(){
+            const n = document.getElementById('brand').value;
+            if(!n) return alert("Enter Brand Name!");
+            const id = Math.floor(Math.random()*100000)+1;
+            firebase.database().ref('pending_orders/'+Date.now()).set({name:n, plotID:id, x:(id%316)*100, y:Math.floor(id/316)*60})
+            .then(()=>{
+                document.getElementById('main-box').style.display='none';
+                document.getElementById('success-msg').style.display='block';
+            });
+        }
+    </script>
+</body>
+</html>
