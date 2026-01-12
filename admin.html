@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body style="background:#000; color:#fff; padding:40px; font-family:sans-serif;">
+    <div id="admin-view" style="display:none;">
+        <h2 style="color:#FFD700">CEO KAWSAR - ADMIN PANEL</h2>
+        <div id="orders-list"></div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script>
+        const pass = prompt("Enter CEO Admin Password:");
+        if(pass === "KAWSARahmed22@@"){
+            document.getElementById('admin-view').style.display='block';
+            init();
+        } else { alert("Access Denied!"); window.location.href='index.html'; }
+
+        function init(){
+            firebase.initializeApp({databaseURL: "https://the-10-million-pixels-plus-default-rtdb.firebaseio.com/"});
+            firebase.database().ref('pending_orders').on('value', s => {
+                const list = document.getElementById('orders-list'); list.innerHTML = "";
+                const data = s.val(); if(!data) return;
+                Object.keys(data).forEach(id => {
+                    list.innerHTML += `<div style="border:1px solid #FFD700; padding:20px; margin-bottom:10px; background:#111;">
+                        Plot: #${data[id].plotID} | Brand: ${data[id].name} <br>
+                        Logo URL: <input type="text" id="img_${id}" style="width:300px;"> 
+                        <button onclick="pub('${id}')">PUBLISH NOW</button>
+                    </div>`;
+                });
+            });
+        }
+        function pub(id){
+            const img = document.getElementById('img_'+id).value;
+            firebase.database().ref('pending_orders/'+id).once('value', s => {
+                let d = s.val(); d.imageUrl = img;
+                firebase.database().ref('pixels/'+id).set(d).then(()=>firebase.database().ref('pending_orders/'+id).remove());
+                alert("Plot #"+d.plotID+" is now LIVE!");
+            });
+        }
+    </script>
+</body>
+</html>
